@@ -21,7 +21,7 @@ export const Route = createFileRoute("/")({
 });
 
 const services = [
-  { icon: Shield, title: "Firewalls Inteligentes", desc: "Barreira adaptativa com regras dinâmicas geradas em tempo real pela nossa IA." },
+  { icon: Shield, title: "Firewalls Inteligentes Next-Gen", desc: "Barreira adaptativa com regras dinâmicas geradas em tempo real pela nossa IA." },
   { icon: Lock, title: "VPN End-to-End", desc: "Criptografia ponta-a-ponta para acesso remoto seguro a qualquer infraestrutura." },
   { icon: Scale, title: "Load Balance", desc: "Distribuição inteligente de carga com previsão de tráfego e auto-escala." },
   { icon: Bug, title: "Antivírus Next-Gen", desc: "Detecção comportamental de ameaças zero-day com modelos treinados continuamente." },
