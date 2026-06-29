@@ -270,7 +270,9 @@ function Index() {
             Converse com um de nossos especialistas e descubra como nossa IA pode proteger seu negócio.
           </p>
           <a
-            href="mailto:contato@globalsiem.com.br"
+            href="https://wa.me/5584988367436"
+            target="_blank"
+            rel="noopener noreferrer"
             className="relative mt-8 inline-flex items-center gap-2 rounded-full bg-gradient-orange px-8 py-4 font-semibold text-primary-foreground shadow-glow-orange hover:brightness-110 hover:scale-[1.02] transition"
           >
             <Mail size={18} /> Falar com Especialista
