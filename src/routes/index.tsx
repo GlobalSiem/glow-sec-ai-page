@@ -5,7 +5,7 @@ import {
   ArrowRight, MessageCircle, Sparkles, ChevronDown, X, Menu,
 } from "lucide-react";
 
-import logo from "@/assets/logo.png";
+import logo from "@/assets/logo.svg";
 import heroBg from "@/assets/hero-bg.jpg";
 import neural from "@/assets/neural.png";
 
