@@ -274,7 +274,7 @@ function Index() {
             href="https://wa.me/5584988367436"
             target="_blank"
             rel="noopener noreferrer"
-            className="relative mt-8 inline-flex items-center gap-2 rounded-full bg-gradient-orange px-8 py-4 font-semibold text-primary-foreground shadow-glow-orange hover:brightness-110 hover:scale-[1.02] transition"
+            className="relative mt-8 inline-flex items-center gap-2 rounded-full bg-[#25D366] hover:bg-[#1FB855] px-8 py-4 font-semibold text-white shadow-[0_0_30px_rgba(37,211,102,0.5)] hover:scale-[1.02] transition"
           >
             <MessageCircle size={18} /> Falar com Especialista
           </a>
