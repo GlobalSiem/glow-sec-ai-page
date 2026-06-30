@@ -2,8 +2,9 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import {
   Shield, Lock, Network, ServerCog, Activity, Scale, Bug, Database,
-  ArrowRight, Mail, Sparkles, ChevronDown, X, Menu,
+  ArrowRight, MessageCircle, Sparkles, ChevronDown, X, Menu,
 } from "lucide-react";
+
 import logo from "@/assets/logo.png";
 import heroBg from "@/assets/hero-bg.jpg";
 import neural from "@/assets/neural.png";
@@ -275,7 +276,7 @@ function Index() {
             rel="noopener noreferrer"
             className="relative mt-8 inline-flex items-center gap-2 rounded-full bg-gradient-orange px-8 py-4 font-semibold text-primary-foreground shadow-glow-orange hover:brightness-110 hover:scale-[1.02] transition"
           >
-            <Mail size={18} /> Falar com Especialista
+            <MessageCircle size={18} /> Falar com Especialista
           </a>
         </div>
       </section>
