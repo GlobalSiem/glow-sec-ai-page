@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import {
-  Shield, Lock, Network, ServerCog, Activity, Scale, Bug, Database,
+  Shield, Lock, Network, ServerCog, Activity, Scale, Bug, Database, BrainCircuit,
   ArrowRight, MessageCircle, Sparkles, ChevronDown, X, Menu,
 } from "lucide-react";
 
@@ -30,6 +30,7 @@ const services = [
   { icon: ServerCog, title: "Servidores Gerenciados", desc: "Hardening, patching e observabilidade de servidores 24/7 com SLA garantido." },
   { icon: Activity, title: "Análise de Tráfego", desc: "Inspeção profunda de pacotes com machine learning para identificar anomalias." },
   { icon: Database, title: "Armazenamento de Logs", desc: "Coleta, retenção segura e análise centralizada de logs para auditoria, forense e correlação de eventos pela IA." },
+  { icon: BrainCircuit, title: "Inteligência Artificial", desc: "IA proprietária como serviço: detecção preditiva de ameaças, automação de resposta e insights contínuos sobre sua infraestrutura." },
 ];
 
 const lgpdItems = [
