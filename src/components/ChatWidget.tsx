@@ -32,6 +32,12 @@ export function ChatWidget() {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
   }, [messages, open]);
 
+  useEffect(() => {
+    const openChat = () => setOpen(true);
+    window.addEventListener("open-ai-chat", openChat);
+    return () => window.removeEventListener("open-ai-chat", openChat);
+  }, []);
+
   const send = async () => {
     const text = input.trim();
     if (!text || loading) return;
