@@ -79,7 +79,7 @@ export function ChatWidget() {
               <div className="w-2.5 h-2.5 rounded-full bg-[oklch(0.82_0.16_210)] animate-pulse-glow" />
               <div>
                 <p className="text-sm font-semibold leading-none">IA Global Siem</p>
-                <p className="text-[10px] text-muted-foreground mt-0.5">Online • powered by n8n</p>
+                <p className="text-[10px] text-muted-foreground mt-0.5">Online • powered by Global Siem</p>
               </div>
             </div>
             <button onClick={() => setOpen(false)} aria-label="Fechar" className="text-muted-foreground hover:text-foreground">
