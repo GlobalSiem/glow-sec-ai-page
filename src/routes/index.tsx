@@ -332,6 +332,8 @@ function Index() {
           </div>
         </div>
       )}
+
+      <ChatWidget />
     </div>
   );
 }
