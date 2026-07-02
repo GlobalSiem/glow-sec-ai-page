@@ -121,9 +121,9 @@ function Index() {
               Conheça Nossos Serviços
               <ArrowRight size={18} className="group-hover:translate-x-1 transition" />
             </a>
-            <a href="https://wa.me/5584988367436" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-full border-2 px-7 py-3.5 text-base font-semibold border-glow-cyan text-[oklch(0.9_0.14_210)] hover:bg-[oklch(0.82_0.16_210/0.1)] transition">
+            <button type="button" onClick={() => window.dispatchEvent(new Event("open-ai-chat"))} className="inline-flex items-center gap-2 rounded-full border-2 px-7 py-3.5 text-base font-semibold border-glow-cyan text-[oklch(0.9_0.14_210)] hover:bg-[oklch(0.82_0.16_210/0.1)] transition">
               Falar com um Especialista
-            </a>
+            </button>
           </div>
         </div>
 
