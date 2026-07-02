@@ -8,6 +8,7 @@ import {
 import logo from "@/assets/logo.png";
 import heroBg from "@/assets/hero-bg.jpg";
 import neural from "@/assets/neural.png";
+import { ChatWidget } from "@/components/ChatWidget";
 
 export const Route = createFileRoute("/")({
   head: () => ({
