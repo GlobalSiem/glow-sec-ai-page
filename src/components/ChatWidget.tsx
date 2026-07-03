@@ -24,7 +24,7 @@ export function ChatWidget() {
   const [loading, setLoading] = useState(false);
   const [sessionId] = useState(() => `sess_${Math.random().toString(36).slice(2)}_${Date.now()}`);
   const [messages, setMessages] = useState<Msg[]>([
-    { role: "bot", text: "Olá! Seja muito bem-vindo(a) à Global SIEM. Eu sou a GiSa. Como posso lhe ajudar?" },
+    { role: "bot", text: "Olá! Seja bem-vindo(a) à Global SIEM. Eu sou a GiSa. Sobre o que você gostaria de informações: automação ou cibersegurança?" },
   ]);
   const scrollRef = useRef<HTMLDivElement>(null);
 
