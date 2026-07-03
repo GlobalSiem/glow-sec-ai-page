@@ -2,12 +2,25 @@ import { createFileRoute } from '@tanstack/react-router'
 
 const N8N_WEBHOOK =
   process.env.N8N_CHAT_WEBHOOK_URL ||
-  'http://ian8n.ddns.net:5678/webhook/0cbb88e8-9fe2-4f81-8019-4a7781cd2eff/chat'
+  'https://n8n.globalsiem.online/webhook-test/d7f55146-0f44-4ff8-87d5-811ee970e04a'
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
   'Access-Control-Allow-Headers': 'Content-Type',
+}
+
+function pickReply(payload: unknown): string {
+  if (typeof payload === 'string') return payload
+  if (payload && typeof payload === 'object') {
+    const p = payload as Record<string, unknown>
+    for (const k of ['response', 'output', 'text', 'message', 'answer', 'reply']) {
+      const v = p[k]
+      if (typeof v === 'string' && v.trim()) return v
+    }
+    return ''
+  }
+  return ''
 }
 
 export const Route = createFileRoute('/api/public/chat')({
@@ -17,76 +30,97 @@ export const Route = createFileRoute('/api/public/chat')({
         new Response(null, { status: 204, headers: corsHeaders }),
 
       POST: async ({ request }) => {
+        const jsonHeaders = { 'Content-Type': 'application/json', ...corsHeaders }
         try {
-          const body = await request.json().catch(() => ({}))
+          const body = await request.json().catch(() => ({} as Record<string, unknown>))
+          const b = body as Record<string, unknown>
+          const message =
+            (typeof b.message === 'string' && b.message) ||
+            (typeof b.chatInput === 'string' && (b.chatInput as string)) ||
+            (typeof b.text === 'string' && (b.text as string)) ||
+            ''
           const sessionId =
-            typeof body?.sessionId === 'string' && body.sessionId.trim()
-              ? body.sessionId
+            typeof b.sessionId === 'string' && (b.sessionId as string).trim()
+              ? (b.sessionId as string)
               : `sess_${Math.random().toString(36).slice(2)}_${Date.now()}`
-          const chatInput =
-            typeof body?.chatInput === 'string' ? body.chatInput : ''
 
-          if (!chatInput.trim()) {
+          if (!message.trim()) {
             return new Response(
-              JSON.stringify({ error: 'chatInput is required' }),
-              {
-                status: 400,
-                headers: { 'Content-Type': 'application/json', ...corsHeaders },
-              },
+              JSON.stringify({ response: '', error: 'message is required', fallback: true }),
+              { status: 200, headers: jsonHeaders },
             )
           }
 
-          const upstream = await fetch(N8N_WEBHOOK, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              sessionId,
-              chatInput,
-              action: 'sendMessage',
-            }),
-          })
+          const controller = new AbortController()
+          const timeout = setTimeout(() => controller.abort(), 45000)
+
+          let upstream: Response
+          try {
+            upstream = await fetch(N8N_WEBHOOK, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                message,
+                chatInput: message,
+                sessionId,
+                action: 'sendMessage',
+              }),
+              signal: controller.signal,
+            })
+          } catch (err) {
+            clearTimeout(timeout)
+            return new Response(
+              JSON.stringify({
+                response:
+                  'Nosso assistente está temporariamente indisponível. Tente novamente em instantes.',
+                fallback: true,
+                error: err instanceof Error ? err.message : 'network_error',
+              }),
+              { status: 200, headers: jsonHeaders },
+            )
+          }
+          clearTimeout(timeout)
 
           const ct = upstream.headers.get('content-type') || ''
-          const payload = ct.includes('application/json')
-            ? await upstream.json()
-            : await upstream.text()
-
-          let reply = ''
-          if (typeof payload === 'string') {
-            reply = payload
-          } else if (payload && typeof payload === 'object') {
-            const p = payload as Record<string, unknown>
-            for (const k of [
-              'output',
-              'text',
-              'message',
-              'response',
-              'answer',
-              'reply',
-            ]) {
-              const v = p[k]
-              if (typeof v === 'string') {
-                reply = v
-                break
-              }
-            }
-            if (!reply) reply = JSON.stringify(payload)
+          let payload: unknown
+          try {
+            payload = ct.includes('application/json')
+              ? await upstream.json()
+              : await upstream.text()
+          } catch {
+            payload = ''
           }
 
-          return new Response(JSON.stringify({ reply, sessionId }), {
-            status: upstream.ok ? 200 : 502,
-            headers: { 'Content-Type': 'application/json', ...corsHeaders },
-          })
+          const reply = pickReply(payload)
+
+          if (!upstream.ok) {
+            return new Response(
+              JSON.stringify({
+                response:
+                  reply ||
+                  'Nosso assistente está temporariamente indisponível. Tente novamente em instantes.',
+                fallback: true,
+                sessionId,
+              }),
+              { status: 200, headers: jsonHeaders },
+            )
+          }
+
+          return new Response(
+            JSON.stringify({
+              response: reply || 'Recebi sua mensagem, mas não obtive uma resposta agora.',
+              sessionId,
+            }),
+            { status: 200, headers: jsonHeaders },
+          )
         } catch (err) {
           return new Response(
             JSON.stringify({
-              error: 'Upstream chat webhook unreachable',
-              detail: err instanceof Error ? err.message : String(err),
+              response: 'Erro inesperado no assistente. Tente novamente.',
+              fallback: true,
+              error: err instanceof Error ? err.message : String(err),
             }),
-            {
-              status: 502,
-              headers: { 'Content-Type': 'application/json', ...corsHeaders },
-            },
+            { status: 200, headers: jsonHeaders },
           )
         }
       },
