@@ -9,13 +9,12 @@ function extractReply(data: unknown): string {
   if (typeof data === "string") return data;
   if (data && typeof data === "object") {
     const d = data as Record<string, unknown>;
-    for (const k of ["output", "text", "message", "response", "answer", "reply"]) {
+    for (const k of ["response", "output", "text", "message", "answer", "reply"]) {
       const v = d[k];
-      if (typeof v === "string") return v;
+      if (typeof v === "string" && v.trim()) return v;
     }
-    return JSON.stringify(data);
   }
-  return String(data ?? "");
+  return "";
 }
 
 export function ChatWidget() {
@@ -48,11 +47,20 @@ export function ChatWidget() {
       const res = await fetch(CHAT_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ sessionId, chatInput: text, action: "sendMessage" }),
+        body: JSON.stringify({ sessionId, message: text, chatInput: text, action: "sendMessage" }),
       });
-      const ct = res.headers.get("content-type") || "";
-      const data = ct.includes("application/json") ? await res.json() : await res.text();
-      setMessages((m) => [...m, { role: "bot", text: extractReply(data) || "..." }]);
+      let data: unknown = null;
+      try {
+        const ct = res.headers.get("content-type") || "";
+        data = ct.includes("application/json") ? await res.json() : await res.text();
+      } catch {
+        data = null;
+      }
+      const reply = extractReply(data);
+      setMessages((m) => [
+        ...m,
+        { role: "bot", text: reply || "Não consegui obter uma resposta agora. Tente novamente em instantes." },
+      ]);
     } catch {
       setMessages((m) => [...m, { role: "bot", text: "Não consegui conectar à IA agora. Tente novamente em instantes." }]);
     } finally {
