@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { MessageCircle, X, Send, Loader2 } from "lucide-react";
 
-const N8N_WEBHOOK = "http://ian8n.ddns.net:5678/webhook/0cbb88e8-9fe2-4f81-8019-4a7781cd2eff/chat";
+const CHAT_ENDPOINT = "/api/public/chat";
 
 type Msg = { role: "user" | "bot"; text: string };
 
@@ -45,7 +45,7 @@ export function ChatWidget() {
     setMessages((m) => [...m, { role: "user", text }]);
     setLoading(true);
     try {
-      const res = await fetch(N8N_WEBHOOK, {
+      const res = await fetch(CHAT_ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ sessionId, chatInput: text, action: "sendMessage" }),
