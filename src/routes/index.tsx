@@ -32,7 +32,7 @@ const services = [
   { icon: Scale, title: "Load Balance", desc: "Distribuição inteligente de carga com previsão de tráfego e auto-escala." },
   { icon: Bug, title: "Antivírus Next-Gen", desc: "Detecção comportamental de ameaças zero-day com modelos treinados continuamente." },
   { icon: Network, title: "Monitoramento de Rede", desc: "Visibilidade 360° do tráfego com alertas preditivos e correlação de eventos." },
-  { icon: ServerCog, title: "Servidores Gerenciados", desc: "Hardening, patching e observabilidade de servidores 24/7 com SLA garantido." },
+  { icon: ServerCog, title: "Virtualização", desc: "Ambientes virtualizados de alta performance com isolamento seguro, alta disponibilidade e gestão centralizada." },
   { icon: Activity, title: "Análise de Tráfego", desc: "Inspeção profunda de pacotes com machine learning para identificar anomalias." },
   { icon: Database, title: "Armazenamento de Logs", desc: "Coleta, retenção segura e análise centralizada de logs para auditoria, forense e correlação de eventos pela IA." },
   { icon: BrainCircuit, title: "IA como Serviço", desc: "Terceirize a inteligência artificial do seu negócio: atendimento automatizado, análise de dados e automações sob medida para clínicas, lojas, escritórios e mais." },
