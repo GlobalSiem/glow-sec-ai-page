@@ -74,7 +74,7 @@ export function ChatWidget() {
         <button
           onClick={() => setOpen(true)}
           aria-label="Abrir chat com IA"
-          className="fixed bottom-6 right-6 z-50 h-14 w-14 rounded-full bg-gradient-orange shadow-glow-orange grid place-items-center text-primary-foreground hover:scale-105 transition"
+          className="fixed bottom-6 right-6 z-50 h-14 w-14 rounded-full bg-[oklch(0.82_0.16_210)] shadow-glow-cyan grid place-items-center text-primary-foreground hover:scale-105 transition"
         >
           <MessageCircle size={24} />
         </button>
@@ -101,7 +101,7 @@ export function ChatWidget() {
                 <div
                   className={`max-w-[85%] rounded-2xl px-3.5 py-2 text-sm leading-relaxed whitespace-pre-wrap ${
                     m.role === "user"
-                      ? "bg-gradient-orange text-primary-foreground rounded-br-sm"
+                      ? "bg-[oklch(0.82_0.16_210)] text-primary-foreground rounded-br-sm"
                       : "bg-background/70 border border-white/10 text-foreground rounded-bl-sm"
                   }`}
                 >
@@ -131,7 +131,7 @@ export function ChatWidget() {
             <button
               type="submit"
               disabled={loading || !input.trim()}
-              className="h-9 w-9 shrink-0 rounded-full bg-gradient-orange grid place-items-center text-primary-foreground disabled:opacity-40 shadow-glow-orange"
+              className="h-9 w-9 shrink-0 rounded-full bg-[oklch(0.82_0.16_210)] grid place-items-center text-primary-foreground disabled:opacity-40 shadow-glow-cyan"
               aria-label="Enviar"
             >
               <Send size={15} />
