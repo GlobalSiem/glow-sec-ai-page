@@ -13,10 +13,14 @@ import { ChatWidget } from "@/components/ChatWidget";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Global Siem — Segurança da Informação com IA" },
-      { name: "description", content: "Proteção avançada com Firewalls, VPN, Antivírus e Monitoramento de Rede otimizados por Inteligência Artificial proprietária." },
-      { property: "og:title", content: "Global Siem — Segurança da Informação com IA" },
-      { property: "og:description", content: "Eleve sua segurança a um nível inteligente. Monitoramento em tempo real, IA proprietária e conformidade LGPD." },
+      { title: "Global Siem — Cibersegurança com IA, SIEM, Firewall e VPN" },
+      { name: "description", content: "Proteção avançada com Firewall Next-Gen, VPN, Antivírus, SIEM e Monitoramento de Rede 24/7 potencializados por IA proprietária. Conformidade LGPD e agentes de IA sob medida." },
+      { name: "keywords", content: "cibersegurança, SIEM, firewall next-gen, VPN, antivírus empresarial, monitoramento de rede, SOC 24/7, análise de tráfego, LGPD, proteção de dados, IA proprietária, agente de IA, automação com IA, IA como serviço, servidores gerenciados, load balance, Global Siem" },
+      { property: "og:title", content: "Global Siem — Cibersegurança com IA, SIEM, Firewall e VPN" },
+      { property: "og:description", content: "Eleve sua segurança a um nível inteligente. Monitoramento em tempo real, IA proprietária, agentes de IA e conformidade LGPD." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:title", content: "Global Siem — Cibersegurança com IA" },
+      { name: "twitter:description", content: "SIEM, Firewall Next-Gen, VPN, monitoramento 24/7 e agentes de IA." },
     ],
   }),
   component: Index,
