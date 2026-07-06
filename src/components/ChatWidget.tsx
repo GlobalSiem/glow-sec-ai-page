@@ -70,15 +70,6 @@ export function ChatWidget() {
 
   return (
     <>
-      {!open && (
-        <button
-          onClick={() => setOpen(true)}
-          aria-label="Abrir chat com IA"
-          className="fixed bottom-6 right-6 z-50 h-14 w-14 rounded-full bg-[oklch(0.82_0.16_210)] shadow-glow-cyan grid place-items-center text-primary-foreground hover:scale-105 transition"
-        >
-          <MessageCircle size={24} />
-        </button>
-      )}
 
       {open && (
         <div className="fixed bottom-6 right-6 z-50 w-[calc(100vw-3rem)] max-w-sm h-[70vh] max-h-[600px] rounded-2xl border border-glow-cyan bg-card/95 backdrop-blur-xl shadow-[var(--shadow-card)] flex flex-col overflow-hidden">
