@@ -2,7 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 
 const N8N_WEBHOOK =
   process.env.N8N_CHAT_WEBHOOK_URL ||
-  'https://n8n.globalsiem.online/webhook-test/d7f55146-0f44-4ff8-87d5-811ee970e04a'
+  'https://n8n.globalsiem.online/webhook-test/7317ea04-4797-41cc-81cb-efc8d301a4eb'
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
