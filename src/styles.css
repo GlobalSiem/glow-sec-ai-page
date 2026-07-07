@@ -134,7 +134,6 @@
   to { --chat-angle: 360deg; }
 }
 .chat-glow-border {
-  position: relative;
   border-radius: 1rem;
   background: oklch(0.17 0.035 220 / 0.95);
   isolation: isolate;
