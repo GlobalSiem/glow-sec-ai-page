@@ -121,11 +121,11 @@ function Index() {
             Proteção avançada em todas as frentes: Firewalls, VPN, Antivírus, Monitoramento de Rede e Servidores, tudo otimizado por nossa Inteligência Artificial proprietária. Monitore seu tráfego em tempo real com confiança total.
           </p>
           <div className="mt-10 flex flex-wrap gap-4">
-            <a href="#servicos" className="group inline-flex items-center gap-2 rounded-full bg-gradient-orange px-7 py-3.5 text-base font-semibold text-primary-foreground shadow-glow-orange hover:brightness-110 hover:scale-[1.02] transition">
+            <a href="#servicos" className="group inline-flex items-center justify-center gap-2 rounded-full bg-gradient-orange h-14 min-w-[280px] px-7 text-base font-semibold text-primary-foreground shadow-glow-orange hover:brightness-110 hover:scale-[1.02] transition">
               Conheça Nossos Serviços
               <ArrowRight size={18} className="group-hover:translate-x-1 transition" />
             </a>
-            <button type="button" onClick={() => window.dispatchEvent(new Event("open-ai-chat"))} className="inline-flex items-center gap-2 rounded-full border-2 px-7 py-3.5 text-base font-semibold border-glow-cyan text-[oklch(0.9_0.14_210)] hover:bg-[oklch(0.82_0.16_210/0.1)] transition">
+            <button type="button" onClick={() => window.dispatchEvent(new Event("open-ai-chat"))} className="inline-flex items-center justify-center gap-2 rounded-full border-2 h-14 min-w-[280px] px-7 text-base font-semibold border-glow-cyan text-[oklch(0.9_0.14_210)] hover:bg-[oklch(0.82_0.16_210/0.1)] transition">
               Falar com um Especialista
             </button>
           </div>
