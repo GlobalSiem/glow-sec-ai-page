@@ -72,7 +72,7 @@ export function ChatWidget() {
     <>
 
       {open && (
-        <div className="fixed bottom-6 right-6 z-50 w-[calc(100vw-3rem)] max-w-sm h-[70vh] max-h-[600px] rounded-2xl border border-glow-cyan bg-card/95 backdrop-blur-xl shadow-[var(--shadow-card)] flex flex-col overflow-hidden">
+        <div className="chat-glow-border fixed bottom-6 right-6 z-50 w-[calc(100vw-3rem)] max-w-sm h-[70vh] max-h-[600px] shadow-[var(--shadow-card)] flex flex-col overflow-hidden">
           <div className="flex items-center justify-between px-4 py-3 border-b border-white/10 bg-background/60">
             <div className="flex items-center gap-2">
               <div className="w-2.5 h-2.5 rounded-full bg-[oklch(0.82_0.16_210)] animate-pulse-glow" />
