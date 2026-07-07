@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
-import { X, Send, Loader2 } from "lucide-react";
+import { X, Send, Loader2, MessageCircle } from "lucide-react";
+
 
 const CHAT_ENDPOINT = "/api/public/chat";
 
@@ -70,9 +71,20 @@ export function ChatWidget() {
 
   return (
     <>
+      {!open && (
+        <button
+          type="button"
+          onClick={() => setOpen(true)}
+          aria-label="Abrir chat"
+          className="fixed bottom-6 right-6 z-50 h-14 w-14 rounded-full bg-gradient-orange grid place-items-center text-primary-foreground shadow-glow-orange hover:scale-105 transition"
+        >
+          <MessageCircle size={24} />
+        </button>
+      )}
 
       {open && (
         <div className="chat-glow-border fixed bottom-6 right-6 z-50 w-[calc(100vw-3rem)] max-w-sm h-[70vh] max-h-[600px] shadow-[var(--shadow-card)] flex flex-col overflow-hidden">
+
           <div className="flex items-center justify-between px-4 py-3 border-b border-white/10 bg-background/60">
             <div className="flex items-center gap-2">
               <div className="w-2.5 h-2.5 rounded-full bg-[oklch(0.82_0.16_210)] animate-pulse-glow" />
