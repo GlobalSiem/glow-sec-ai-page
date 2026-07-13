@@ -102,10 +102,8 @@ export function ChatWidget() {
             ))}
             {loading && (
               <div className="flex justify-start">
-                <div className="bg-background/70 border border-white/10 rounded-2xl rounded-bl-sm px-3.5 py-3 flex items-center gap-1.5" aria-label="digitando">
-                  <span className="typing-dot" />
-                  <span className="typing-dot" />
-                  <span className="typing-dot" />
+                <div className="bg-background/70 border border-white/10 rounded-2xl rounded-bl-sm px-3.5 py-2 text-sm text-muted-foreground" aria-label="digitando">
+                  digitando...
                 </div>
               </div>
             )}
