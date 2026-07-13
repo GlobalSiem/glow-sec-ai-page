@@ -117,7 +117,12 @@ export function ChatWidget() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Escreva sua mensagem..."
-              className="flex-1 bg-background/70 border border-white/10 rounded-full px-4 py-2 text-sm outline-none focus:border-[oklch(0.82_0.16_210/0.6)]"
+              disabled={loading}
+              className={`flex-1 bg-background/70 border rounded-full px-4 py-2 text-sm outline-none transition-colors ${
+                loading
+                  ? "input-typing-glow border-[oklch(0.82_0.16_210/0.8)]"
+                  : "border-white/10 focus:border-[oklch(0.82_0.16_210/0.6)]"
+              }`}
             />
             <button
               type="submit"
