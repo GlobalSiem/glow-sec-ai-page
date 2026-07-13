@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { X, Send, Loader2 } from "lucide-react";
+import { X, Send } from "lucide-react";
 
 const CHAT_ENDPOINT = "/api/public/chat";
 
@@ -102,8 +102,10 @@ export function ChatWidget() {
             ))}
             {loading && (
               <div className="flex justify-start">
-                <div className="bg-background/70 border border-white/10 rounded-2xl px-3.5 py-2 text-sm text-muted-foreground flex items-center gap-2">
-                  <Loader2 size={14} className="animate-spin" /> pensando...
+                <div className="bg-background/70 border border-white/10 rounded-2xl rounded-bl-sm px-3.5 py-3 flex items-center gap-1.5" aria-label="digitando">
+                  <span className="typing-dot" />
+                  <span className="typing-dot" />
+                  <span className="typing-dot" />
                 </div>
               </div>
             )}
