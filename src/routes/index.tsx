@@ -330,8 +330,8 @@ function Index() {
                 <a href="#lgpd" className="text-[oklch(0.9_0.14_210)] underline">Política LGPD</a>.
               </p>
               <div className="mt-3 flex gap-2">
-                <button onClick={() => setCookieOpen(false)} className="rounded-full bg-gradient-orange px-4 py-1.5 text-xs font-semibold text-primary-foreground shadow-glow-orange">Aceitar</button>
-                <button onClick={() => setCookieOpen(false)} className="rounded-full border border-white/20 px-4 py-1.5 text-xs font-medium hover:bg-white/5">Recusar</button>
+                <button onClick={() => decideCookies("accepted")} className="rounded-full bg-gradient-orange px-4 py-1.5 text-xs font-semibold text-primary-foreground shadow-glow-orange">Aceitar</button>
+                <button onClick={() => decideCookies("rejected")} className="rounded-full border border-white/20 px-4 py-1.5 text-xs font-medium hover:bg-white/5">Recusar</button>
               </div>
             </div>
           </div>
