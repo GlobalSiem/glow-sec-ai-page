@@ -9,6 +9,7 @@ import logo from "@/assets/logo.png";
 import heroBg from "@/assets/hero-bg.jpg";
 import neural from "@/assets/neural.png";
 import { ChatWidget } from "@/components/ChatWidget";
+import { StatsBar, TrustBadges, Comparison, Segments, LiveThreatFeed } from "@/components/LandingExtras";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -49,14 +50,20 @@ const lgpdItems = [
 function Index() {
   const [scrolled, setScrolled] = useState(false);
   const [openIdx, setOpenIdx] = useState<number | null>(0);
-  const [cookieOpen, setCookieOpen] = useState(true);
+  const [cookieOpen, setCookieOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
+    if (!localStorage.getItem("gs-cookie-consent")) setCookieOpen(true);
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const decideCookies = (choice: "accepted" | "rejected") => {
+    localStorage.setItem("gs-cookie-consent", choice);
+    setCookieOpen(false);
+  };
 
   return (
     <div className="relative min-h-screen overflow-x-hidden">
@@ -137,6 +144,9 @@ function Index() {
         </svg>
       </section>
 
+      <StatsBar />
+      <TrustBadges />
+
       {/* Services */}
       <section id="servicos" className="relative px-6 py-28">
         <div className="max-w-7xl mx-auto">
@@ -174,6 +184,9 @@ function Index() {
         </div>
       </section>
 
+      <Comparison />
+      <Segments />
+
       {/* AI showcase */}
       <section id="ia" className="relative px-6 py-28 overflow-hidden">
         <img src={neural} alt="" aria-hidden className="absolute -right-32 top-1/2 -translate-y-1/2 w-[700px] opacity-40 pointer-events-none animate-float" loading="lazy" width={1024} height={1024} />
@@ -210,19 +223,7 @@ function Index() {
                 </div>
                 <span className="text-xs text-[oklch(0.9_0.14_210)]">LIVE</span>
               </div>
-              <div className="space-y-3">
-                {[
-                  { t: "Threat detected", v: "blocked", c: "orange" },
-                  { t: "Anomaly score", v: "0.94", c: "cyan" },
-                  { t: "Traffic analyzed", v: "1.2 TB/h", c: "cyan" },
-                  { t: "Auto-mitigation", v: "active", c: "orange" },
-                ].map((row, i) => (
-                  <div key={i} className="flex items-center justify-between rounded-lg bg-background/50 border border-white/5 px-4 py-3 text-sm">
-                    <span className="text-muted-foreground font-mono">{row.t}</span>
-                    <span className={row.c === "orange" ? "text-[oklch(0.85_0.2_55)] font-semibold" : "text-[oklch(0.9_0.14_210)] font-semibold"}>{row.v}</span>
-                  </div>
-                ))}
-              </div>
+              <LiveThreatFeed />
             </div>
           </div>
         </div>
