@@ -115,12 +115,14 @@ export function ChatWidget() {
             onSubmit={(e) => { e.preventDefault(); send(); }}
             className="border-t border-white/10 p-3 flex items-center gap-2 bg-background/60"
           >
-            <input
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Escreva sua mensagem..."
-              className="flex-1 bg-background/70 border border-white/10 rounded-full px-4 py-2 text-sm outline-none focus:border-[oklch(0.82_0.16_210/0.6)]"
-            />
+            <div className="chat-input-ring flex-1">
+              <input
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                placeholder="Escreva sua mensagem..."
+                className="relative z-[1] w-full bg-background/80 rounded-full border border-transparent px-4 py-2 text-sm outline-none"
+              />
+            </div>
             <button
               type="submit"
               disabled={loading || !input.trim()}
