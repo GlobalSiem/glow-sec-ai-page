@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { X, Send } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const CHAT_ENDPOINT = "/api/public/chat";
 
@@ -26,9 +27,25 @@ export function ChatWidget() {
     { role: "bot", text: "Olá, tudo bem? Me chamo GiSa, sou aqui da Global Siem. Com quem eu falo, por gentileza?" },
   ]);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
-    scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: "smooth" });
+    if (!open) return;
+    previousFocusRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    inputRef.current?.focus();
+    const onEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onEscape);
+    return () => {
+      window.removeEventListener("keydown", onEscape);
+      previousFocusRef.current?.focus();
+    };
+  }, [open]);
+
+  useEffect(() => {
+    scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
   }, [messages, open]);
 
   useEffect(() => {
@@ -72,21 +89,21 @@ export function ChatWidget() {
     <>
 
       {open && (
-        <div className="chat-glow-border fixed bottom-6 right-6 z-50 w-[calc(100vw-3rem)] max-w-sm h-[70vh] max-h-[600px] shadow-[var(--shadow-card)] flex flex-col overflow-hidden">
+        <div role="dialog" aria-labelledby="gisa-title" className="chat-glow-border fixed bottom-6 right-6 z-50 w-[calc(100vw-3rem)] max-w-sm h-[70dvh] max-h-[600px] shadow-[var(--shadow-card)] flex flex-col overflow-hidden">
           <div className="flex items-center justify-between px-4 py-3 border-b border-white/10 bg-background/60">
             <div className="flex items-center gap-2">
               <div className="w-2.5 h-2.5 rounded-full bg-[oklch(0.82_0.16_210)] animate-pulse-glow" />
               <div>
-                <p className="text-sm font-semibold leading-none">GiSa</p>
+                <p id="gisa-title" className="text-sm font-semibold leading-none">GiSa</p>
                 <p className="text-[10px] text-muted-foreground mt-0.5">Online • powered by Global Siem</p>
               </div>
             </div>
-            <button onClick={() => setOpen(false)} aria-label="Fechar" className="text-muted-foreground hover:text-foreground">
+            <Button variant="ghost" size="icon" onClick={() => setOpen(false)} aria-label="Fechar chat" className="text-muted-foreground hover:text-foreground">
               <X size={18} />
-            </button>
+            </Button>
           </div>
 
-          <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 py-4 space-y-3">
+          <div ref={scrollRef} role="log" aria-label="Conversa com GiSa" aria-live="polite" aria-relevant="additions" className="flex-1 min-h-0 overflow-y-auto px-4 py-4 space-y-3">
             {messages.map((m, i) => (
               <div key={i} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
                 <div
@@ -102,7 +119,7 @@ export function ChatWidget() {
             ))}
             {loading && (
               <div className="flex justify-start">
-                <div className="bg-background/70 border border-white/10 rounded-2xl rounded-bl-sm px-3.5 py-3 flex items-center gap-1.5" aria-label="digitando">
+                <div role="status" className="bg-background/70 border border-white/10 rounded-2xl rounded-bl-sm px-3.5 py-3 flex items-center gap-1.5" aria-label="GiSa está digitando">
                   <span className="typing-dot" />
                   <span className="typing-dot" />
                   <span className="typing-dot" />
@@ -115,22 +132,24 @@ export function ChatWidget() {
             onSubmit={(e) => { e.preventDefault(); send(); }}
             className="border-t border-white/10 p-3 flex items-center gap-2 bg-background/60"
           >
-            <div className="chat-input-ring flex-1">
+            <div className="chat-input-ring flex-1 min-w-0">
               <input
+                ref={inputRef}
+                aria-label="Sua mensagem para GiSa"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Escreva sua mensagem..."
                 className="relative z-[1] w-full bg-background/80 rounded-full border border-transparent px-4 py-2 text-sm outline-none"
               />
             </div>
-            <button
+            <Button
               type="submit"
               disabled={loading || !input.trim()}
-              className="h-9 w-9 shrink-0 rounded-full bg-[oklch(0.82_0.16_210)] grid place-items-center text-primary-foreground disabled:opacity-40 shadow-glow-cyan"
+              size="icon" className="h-9 w-9 shrink-0 rounded-full bg-accent hover:bg-accent/90 text-accent-foreground disabled:opacity-40 shadow-glow-cyan"
               aria-label="Enviar"
             >
               <Send size={15} />
-            </button>
+            </Button>
           </form>
         </div>
       )}
