@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
 import {
   ShieldCheck, Lock, Fingerprint, FileCheck2, X, Check,
   Stethoscope, ShoppingBag, Building2,
@@ -109,16 +110,18 @@ export function Segments() {
         </div>
         <div className="mt-10 flex flex-wrap justify-center gap-3">
           {segs.map((s, i) => (
-            <button
+            <Button variant="ghost"
               key={s.t}
               onClick={() => setActive(i)}
-              className={`rounded-full px-5 py-2.5 text-sm font-semibold transition border ${i === active ? "bg-gradient-orange text-primary-foreground shadow-glow-orange border-transparent" : "border-white/15 text-muted-foreground hover:text-foreground"}`}
+              aria-pressed={i === active}
+              aria-controls="segment-details"
+              className={`h-auto whitespace-normal rounded-full px-5 py-2.5 text-sm font-semibold transition border ${i === active ? "bg-gradient-orange text-primary-foreground shadow-glow-orange border-transparent" : "border-white/15 text-muted-foreground hover:text-foreground"}`}
             >
               {s.t}
-            </button>
+            </Button>
           ))}
         </div>
-        <div key={S.t} className="mt-8 rounded-3xl border border-glow-cyan bg-card/60 backdrop-blur-md p-8 md:p-10 flex flex-col md:flex-row gap-6 items-start">
+        <div id="segment-details" key={S.t} aria-live="polite" className="mt-8 rounded-3xl border border-glow-cyan bg-card/60 backdrop-blur-md p-8 md:p-10 flex flex-col md:flex-row gap-6 items-start">
           <div className="w-16 h-16 shrink-0 rounded-2xl grid place-items-center bg-[oklch(0.82_0.16_210/0.12)] border border-[oklch(0.82_0.16_210/0.3)]">
             <S.icon size={30} className={CYAN} />
           </div>

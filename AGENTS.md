@@ -8,3 +8,6 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Keep commercial solution paths, hiring steps and FAQs in browser-safe presentation components; do not encode unverified prices or service guarantees.
+- Keep cookie preference parsing and persistence in a browser-storage helper with tests; the preference must remain editable and must not imply enforcement of nonexistent trackers.

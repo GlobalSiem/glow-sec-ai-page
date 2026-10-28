@@ -10,6 +10,10 @@ import heroBg from "@/assets/hero-bg.jpg";
 import neural from "@/assets/neural.png";
 import { ChatWidget } from "@/components/ChatWidget";
 import { StatsBar, TrustBadges, Comparison, Segments, LiveThreatFeed } from "@/components/LandingExtras";
+import { SolutionPaths, HiringSections } from "@/components/CommercialSections";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { readCookieChoice, saveCookieChoice, type CookieChoice } from "@/lib/cookie-preferences";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -20,6 +24,7 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "Global Siem — Cibersegurança com IA, SIEM, Firewall e VPN" },
       { property: "og:description", content: "Eleve sua segurança a um nível inteligente. Monitoramento em tempo real, IA proprietária, agentes de IA e conformidade LGPD." },
       { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "Global Siem — Cibersegurança com IA" },
       { name: "twitter:description", content: "SIEM, Firewall Next-Gen, VPN, monitoramento 24/7 e agentes de IA." },
     ],
@@ -51,18 +56,26 @@ function Index() {
   const [scrolled, setScrolled] = useState(false);
   const [openIdx, setOpenIdx] = useState<number | null>(0);
   const [cookieOpen, setCookieOpen] = useState(false);
+  const [cookieChoice, setCookieChoice] = useState<CookieChoice | null>(null);
+  const [cookieError, setCookieError] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    if (!localStorage.getItem("gs-cookie-consent")) setCookieOpen(true);
+    let saved: CookieChoice | null = null;
+    try { saved = readCookieChoice(window.localStorage); } catch { /* Storage may be blocked. */ }
+    setCookieChoice(saved);
+    setCookieOpen(saved === null);
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const decideCookies = (choice: "accepted" | "rejected") => {
-    localStorage.setItem("gs-cookie-consent", choice);
-    setCookieOpen(false);
+  const decideCookies = (choice: CookieChoice) => {
+    let saved = false;
+    try { saved = saveCookieChoice(window.localStorage, choice); } catch { /* Keep this visit usable. */ }
+    setCookieChoice(choice);
+    setCookieError(!saved);
+    if (saved) setCookieOpen(false);
   };
 
   return (
@@ -86,13 +99,13 @@ function Index() {
             <a href="#contato" className="hidden sm:inline-flex items-center gap-2 rounded-full bg-gradient-orange px-5 py-2.5 text-sm font-semibold text-primary-foreground shadow-glow-orange hover:brightness-110 transition">
               Fale Conosco
             </a>
-            <button className="md:hidden text-foreground" onClick={() => setMenuOpen(!menuOpen)} aria-label="menu">
+            <Button variant="ghost" size="icon" className="md:hidden text-foreground" onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu de navegação" aria-expanded={menuOpen} aria-controls="mobile-navigation">
               {menuOpen ? <X size={22} /> : <Menu size={22} />}
-            </button>
+            </Button>
           </div>
         </div>
         {menuOpen && (
-          <div className="md:hidden bg-background/95 backdrop-blur-xl border-t border-white/5 px-6 py-4 flex flex-col gap-3 text-sm">
+          <div id="mobile-navigation" className="md:hidden bg-background/95 backdrop-blur-xl border-t border-white/5 px-6 py-4 flex flex-col gap-3 text-sm">
             <a href="#servicos" onClick={() => setMenuOpen(false)}>Serviços</a>
             <a href="#ia" onClick={() => setMenuOpen(false)}>IA</a>
             <a href="#lgpd" onClick={() => setMenuOpen(false)}>LGPD</a>
@@ -118,23 +131,23 @@ function Index() {
 
         <div className="max-w-5xl mx-auto">
           <div className="inline-flex items-center gap-2 rounded-full border border-[oklch(0.74_0.21_48/0.4)] bg-[oklch(0.74_0.21_48/0.08)] px-4 py-1.5 text-sm text-[oklch(0.85_0.2_55)] mb-8">
-            <Sparkles size={14} /> Segurança da Informação com IA Proprietária
+            <Sparkles size={14} className="shrink-0" /> Cibersegurança e Agentes de IA
           </div>
-          <h1 className="font-display font-bold text-5xl md:text-7xl lg:text-8xl leading-[1.05] tracking-tight">
-            Eleve sua <span className="glow-orange">Segurança</span> a um<br />
+          <h1 className="hero-headline font-display font-bold text-4xl sm:text-5xl md:text-6xl xl:text-7xl leading-[1.12]">
+            Eleve sua <span className="glow-orange">Segurança</span>{" "}
+            <span className="whitespace-nowrap">a um</span>{" "}
             <span className="glow-cyan">Nível Inteligente</span>
           </h1>
           <p className="mt-8 max-w-2xl text-lg text-muted-foreground leading-relaxed">
-            Proteção avançada em todas as frentes: Firewalls, VPN, Antivírus, Monitoramento de Rede e Servidores, tudo otimizado por nossa Inteligência Artificial proprietária. Monitore seu tráfego em tempo real com confiança total.
+            Cibersegurança para proteger sua empresa e agentes de IA para transformar o atendimento. Firewalls, VPN e monitoramento de rede, junto a automações sob medida para clínicas, lojas e escritórios.
           </p>
-          <div className="mt-10 flex flex-wrap gap-4">
-            <a href="#servicos" className="group inline-flex items-center justify-center gap-2 rounded-full bg-gradient-orange h-14 min-w-[280px] px-7 text-base font-semibold text-primary-foreground shadow-glow-orange hover:brightness-110 hover:scale-[1.02] transition">
-              Conheça Nossos Serviços
-              <ArrowRight size={18} className="group-hover:translate-x-1 transition" />
-            </a>
-            <button type="button" onClick={() => window.dispatchEvent(new Event("open-ai-chat"))} className="inline-flex items-center justify-center gap-2 rounded-full border-2 h-14 min-w-[280px] px-7 text-base font-semibold border-glow-cyan text-[oklch(0.9_0.14_210)] hover:bg-[oklch(0.82_0.16_210/0.1)] transition">
+          <div className="mt-10 grid sm:grid-cols-2 gap-4 max-w-2xl">
+            <Button asChild className="group rounded-full bg-gradient-orange h-14 w-full px-4 text-sm sm:text-base font-semibold shadow-glow-orange hover:brightness-110">
+              <a href="#servicos">Conheça Nossos Serviços <ArrowRight aria-hidden="true" /></a>
+            </Button>
+            <Button variant="outline" onClick={() => window.dispatchEvent(new Event("open-ai-chat"))} className="rounded-full border-2 h-14 w-full px-4 text-sm sm:text-base font-semibold border-accent text-accent hover:bg-accent/10 hover:text-accent">
               Falar com um Especialista
-            </button>
+            </Button>
           </div>
         </div>
 
@@ -146,6 +159,7 @@ function Index() {
 
       <StatsBar />
       <TrustBadges />
+      <SolutionPaths />
 
       {/* Services */}
       <section id="servicos" className="relative px-6 py-28">
@@ -186,6 +200,21 @@ function Index() {
 
       <Comparison />
       <Segments />
+      <section id="agentes-ia" className="px-6 py-20 border-y border-border">
+        <div className="max-w-6xl mx-auto">
+          <p className="text-sm font-semibold text-accent">IA COMO SERVIÇO</p>
+          <h2 className="mt-3 text-3xl md:text-5xl font-bold max-w-3xl">Agentes de IA que trabalham com o seu negócio</h2>
+          <p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">Terceirize a inteligência artificial com soluções adaptadas aos seus processos, do primeiro atendimento às tarefas do dia a dia.</p>
+          <ul className="mt-8 grid md:grid-cols-3 gap-6">
+            {[
+              ["Atendimento", "Respostas a dúvidas e organização das primeiras informações de clientes."],
+              ["Agendamento", "Automações para solicitações de horários e acompanhamento do atendimento."],
+              ["Processos e dados", "Apoio à análise de informações e a tarefas repetitivas, conforme as integrações disponíveis."],
+            ].map(([title, text]) => <li key={title} className="border-t border-accent/40 pt-5"><h3 className="text-xl font-semibold">{title}</h3><p className="mt-3 text-muted-foreground leading-relaxed">{text}</p></li>)}
+          </ul>
+          <Button asChild variant="outline" className="mt-8 h-auto min-h-11 whitespace-normal text-accent border-accent hover:bg-accent/10 hover:text-accent"><a href="https://wa.me/5584988367436?text=Tenho%20interesse%20em%20agentes%20de%20IA" target="_blank" rel="noopener noreferrer">Conversar sobre agentes de IA <ArrowRight aria-hidden="true" /></a></Button>
+        </div>
+      </section>
 
       {/* AI showcase */}
       <section id="ia" className="relative px-6 py-28 overflow-hidden">
@@ -229,6 +258,8 @@ function Index() {
         </div>
       </section>
 
+      <HiringSections />
+
       {/* LGPD */}
       <section id="lgpd" className="relative px-6 py-28">
         <div className="max-w-4xl mx-auto">
@@ -247,15 +278,15 @@ function Index() {
               const open = openIdx === i;
               return (
                 <div key={item.title} className={`rounded-2xl border bg-card/40 backdrop-blur-sm transition-all ${open ? "border-[oklch(0.82_0.16_210/0.5)]" : ""}`}>
-                  <button
+                  <Button variant="ghost" id={`lgpd-trigger-${i}`} aria-expanded={open} aria-controls={`lgpd-panel-${i}`}
                     onClick={() => setOpenIdx(open ? null : i)}
-                    className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left"
+                    className="w-full h-auto whitespace-normal flex items-center justify-between gap-4 px-6 py-5 text-left hover:bg-accent/5"
                   >
                     <span className="font-display font-semibold text-lg">{item.title}</span>
                     <ChevronDown size={20} className={`shrink-0 text-[oklch(0.9_0.14_210)] transition-transform ${open ? "rotate-180" : ""}`} />
-                  </button>
+                  </Button>
                   {open && (
-                    <div className="px-6 pb-6 text-muted-foreground leading-relaxed">
+                    <div id={`lgpd-panel-${i}`} role="region" aria-labelledby={`lgpd-trigger-${i}`} className="px-6 pb-6 text-muted-foreground leading-relaxed">
                       {item.body}
                     </div>
                   )}
@@ -308,6 +339,7 @@ function Index() {
             <p className="font-semibold text-foreground mb-2">Legal</p>
             <a href="#lgpd" className="block hover:text-[oklch(0.9_0.14_210)] transition">Políticas de Privacidade & LGPD</a>
             <a href="mailto:dpo@globalsiem.com.br" className="block hover:text-foreground">dpo@globalsiem.com.br</a>
+            <Button variant="link" className="block p-0 h-auto text-muted-foreground font-normal whitespace-normal text-left hover:text-foreground" onClick={() => { setCookieError(false); setCookieOpen(true); }}>Preferências de cookies</Button>
           </div>
         </div>
         <div className="max-w-7xl mx-auto mt-10 pt-6 border-t border-white/5 text-xs text-muted-foreground flex flex-wrap justify-between gap-3">
@@ -317,26 +349,20 @@ function Index() {
       </footer>
 
       {/* Cookie banner */}
-      {cookieOpen && (
-        <div className="fixed bottom-4 inset-x-4 md:left-auto md:right-6 md:max-w-md z-40 rounded-2xl border border-glow-cyan bg-card/95 backdrop-blur-xl p-5 shadow-[var(--shadow-card)]">
-          <div className="flex items-start gap-3">
-            <div className="w-10 h-10 rounded-full bg-gradient-orange shadow-glow-orange shrink-0 grid place-items-center text-primary-foreground">
-              <Shield size={18} />
-            </div>
-            <div className="min-w-0 flex-1">
-              <p className="font-semibold text-sm">Cookies & Privacidade</p>
-              <p className="mt-1 text-xs text-muted-foreground leading-relaxed">
-                Utilizamos cookies para melhorar sua experiência e aprimorar nossos serviços de IA. Saiba mais em nossa{" "}
-                <a href="#lgpd" className="text-[oklch(0.9_0.14_210)] underline">Política LGPD</a>.
-              </p>
-              <div className="mt-3 flex gap-2">
-                <button onClick={() => decideCookies("accepted")} className="rounded-full bg-gradient-orange px-4 py-1.5 text-xs font-semibold text-primary-foreground shadow-glow-orange">Aceitar</button>
-                <button onClick={() => decideCookies("rejected")} className="rounded-full border border-white/20 px-4 py-1.5 text-xs font-medium hover:bg-white/5">Recusar</button>
-              </div>
-            </div>
+      <Dialog open={cookieOpen} onOpenChange={setCookieOpen}>
+        <DialogContent className="w-[calc(100%-2rem)] max-w-md rounded-lg border-accent/40 bg-card">
+          <DialogTitle>Cookies & Privacidade</DialogTitle>
+          <DialogDescription>Sua escolha fica salva neste navegador e pode ser alterada em “Preferências de cookies” no rodapé.</DialogDescription>
+          <p className="text-sm text-muted-foreground leading-relaxed">Este site registra sua preferência no armazenamento local. Nenhum rastreador opcional é ativado por esta escolha.</p>
+          {cookieChoice && <p className="text-sm">Escolha atual: <strong>{cookieChoice === "accepted" ? "Aceitar" : "Recusar"}</strong>.</p>}
+          <a href="#lgpd" onClick={() => setCookieOpen(false)} className="text-sm text-accent underline">Política LGPD</a>
+          {cookieError && <p role="alert" className="text-sm text-foreground">Seu navegador não permitiu salvar a escolha. Ela vale nesta visita, mas poderá ser solicitada novamente.</p>}
+          <div className="grid grid-cols-2 gap-3">
+            <Button onClick={() => decideCookies("accepted")}>Aceitar</Button>
+            <Button variant="outline" onClick={() => decideCookies("rejected")}>Recusar</Button>
           </div>
-        </div>
-      )}
+        </DialogContent>
+      </Dialog>
 
       <ChatWidget />
     </div>
