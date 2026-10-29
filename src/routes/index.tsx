@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import {
-  Shield, Lock, Network, ServerCog, Activity, Scale, Bug, Database, BrainCircuit,
+  Shield, Lock, Network, ServerCog, Activity, Scale, Bug, Database, BrainCircuit, MessageSquare, CalendarCheck, Workflow,
   ArrowRight, MessageCircle, Sparkles, ChevronDown, X, Menu,
 } from "lucide-react";
 
@@ -10,7 +10,7 @@ import heroBg from "@/assets/hero-bg.jpg";
 import neural from "@/assets/neural.png";
 import { ChatWidget } from "@/components/ChatWidget";
 import { StatsBar, TrustBadges, Comparison, Segments, LiveThreatFeed } from "@/components/LandingExtras";
-import { SolutionPaths, HiringSections } from "@/components/CommercialSections";
+import { HiringSections } from "@/components/CommercialSections";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { readCookieChoice, saveCookieChoice, type CookieChoice } from "@/lib/cookie-preferences";
@@ -41,7 +41,6 @@ const services = [
   { icon: ServerCog, title: "Virtualização", desc: "Ambientes virtualizados de alta performance com isolamento seguro, alta disponibilidade e gestão centralizada." },
   { icon: Activity, title: "Análise de Tráfego", desc: "Inspeção profunda de pacotes com machine learning para identificar anomalias." },
   { icon: Database, title: "Armazenamento de Logs", desc: "Coleta, retenção segura e análise centralizada de logs para auditoria, forense e correlação de eventos pela IA." },
-  { icon: BrainCircuit, title: "IA como Serviço", desc: "Terceirize a inteligência artificial do seu negócio: atendimento automatizado, análise de dados e automações sob medida para clínicas, lojas, escritórios e mais." },
 ];
 
 const lgpdItems = [
@@ -90,8 +89,8 @@ function Index() {
             </span>
           </a>
           <div className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
-            <a href="#servicos" className="hover:text-foreground transition">Serviços</a>
-            <a href="#ia" className="hover:text-foreground transition">IA</a>
+            <a href="#servicos" className="hover:text-foreground transition">Cibersegurança</a>
+            <a href="#agentes-ia" className="hover:text-foreground transition">Agentes de IA</a>
             <a href="#lgpd" className="hover:text-foreground transition">LGPD</a>
             <a href="#contato" className="hover:text-foreground transition">Contato</a>
           </div>
@@ -106,8 +105,8 @@ function Index() {
         </div>
         {menuOpen && (
           <div id="mobile-navigation" className="md:hidden bg-background/95 backdrop-blur-xl border-t border-white/5 px-6 py-4 flex flex-col gap-3 text-sm">
-            <a href="#servicos" onClick={() => setMenuOpen(false)}>Serviços</a>
-            <a href="#ia" onClick={() => setMenuOpen(false)}>IA</a>
+            <a href="#servicos" onClick={() => setMenuOpen(false)}>Cibersegurança</a>
+            <a href="#agentes-ia" onClick={() => setMenuOpen(false)}>Agentes de IA</a>
             <a href="#lgpd" onClick={() => setMenuOpen(false)}>LGPD</a>
             <a href="#contato" onClick={() => setMenuOpen(false)}>Contato</a>
           </div>
@@ -159,13 +158,12 @@ function Index() {
 
       <StatsBar />
       <TrustBadges />
-      <SolutionPaths />
 
       {/* Services */}
       <section id="servicos" className="relative px-6 py-28">
         <div className="max-w-7xl mx-auto">
           <div className="max-w-2xl">
-            <p className="text-sm font-semibold text-[oklch(0.9_0.14_210)] uppercase tracking-widest">Serviços Core</p>
+            <p className="text-sm font-semibold text-[oklch(0.9_0.14_210)] uppercase tracking-widest">Cibersegurança</p>
             <h2 className="mt-3 text-4xl md:text-5xl font-bold">
               Defesa <span className="glow-orange">completa</span>, orquestrada por <span className="glow-cyan">IA</span>
             </h2>
@@ -199,29 +197,12 @@ function Index() {
       </section>
 
       <Comparison />
-      <Segments />
-      <section id="agentes-ia" className="px-6 py-20 border-y border-border">
-        <div className="max-w-6xl mx-auto">
-          <p className="text-sm font-semibold text-accent">IA COMO SERVIÇO</p>
-          <h2 className="mt-3 text-3xl md:text-5xl font-bold max-w-3xl">Agentes de IA que trabalham com o seu negócio</h2>
-          <p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">Terceirize a inteligência artificial com soluções adaptadas aos seus processos, do primeiro atendimento às tarefas do dia a dia.</p>
-          <ul className="mt-8 grid md:grid-cols-3 gap-6">
-            {[
-              ["Atendimento", "Respostas a dúvidas e organização das primeiras informações de clientes."],
-              ["Agendamento", "Automações para solicitações de horários e acompanhamento do atendimento."],
-              ["Processos e dados", "Apoio à análise de informações e a tarefas repetitivas, conforme as integrações disponíveis."],
-            ].map(([title, text]) => <li key={title} className="border-t border-accent/40 pt-5"><h3 className="text-xl font-semibold">{title}</h3><p className="mt-3 text-muted-foreground leading-relaxed">{text}</p></li>)}
-          </ul>
-          <Button asChild variant="outline" className="mt-8 h-auto min-h-11 whitespace-normal text-accent border-accent hover:bg-accent/10 hover:text-accent"><a href="https://wa.me/5584988367436?text=Tenho%20interesse%20em%20agentes%20de%20IA" target="_blank" rel="noopener noreferrer">Conversar sobre agentes de IA <ArrowRight aria-hidden="true" /></a></Button>
-        </div>
-      </section>
-
       {/* AI showcase */}
       <section id="ia" className="relative px-6 py-28 overflow-hidden">
         <img src={neural} alt="" aria-hidden className="absolute -right-32 top-1/2 -translate-y-1/2 w-[700px] opacity-40 pointer-events-none animate-float" loading="lazy" width={1024} height={1024} />
         <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center relative">
           <div>
-            <p className="text-sm font-semibold text-[oklch(0.85_0.2_55)] uppercase tracking-widest">Núcleo de Inteligência</p>
+            <p className="text-sm font-semibold text-[oklch(0.85_0.2_55)] uppercase tracking-widest">Inteligência para Cibersegurança</p>
             <h2 className="mt-3 text-4xl md:text-5xl font-bold">
               Uma IA <span className="glow-cyan">proprietária</span> treinada para defender
             </h2>
@@ -258,7 +239,23 @@ function Index() {
         </div>
       </section>
 
-      <HiringSections />
+
+      <section id="agentes-ia" className="relative px-6 py-28 overflow-hidden">
+        <div className="max-w-7xl mx-auto relative">
+          <p className="text-sm font-semibold text-accent uppercase tracking-widest">IA como Serviço</p>
+          <h2 className="mt-3 text-4xl md:text-5xl font-bold max-w-3xl">Agentes de <span className="glow-cyan">IA</span> para transformar seu <span className="glow-orange">negócio</span></h2>
+          <p className="mt-5 max-w-2xl text-lg text-muted-foreground leading-relaxed">Terceirize a inteligência artificial com atendimento, agendamentos e automações sob medida para clínicas, lojas e escritórios.</p>
+          <div className="mt-14 grid md:grid-cols-3 gap-5">
+            {[
+              { icon: MessageSquare, title: "Atendimento inteligente", text: "Respostas a dúvidas e organização das primeiras informações dos seus clientes." },
+              { icon: CalendarCheck, title: "Agendamento automatizado", text: "Agentes para solicitações de horários e acompanhamento do atendimento." },
+              { icon: Workflow, title: "Automações e dados", text: "Apoio à análise de informações e a tarefas repetitivas, conforme as integrações disponíveis." },
+            ].map(({ icon: Icon, title, text }) => <div key={title} className="group rounded-2xl border border-border bg-card/40 backdrop-blur-sm p-7 hover:border-accent/50 hover:-translate-y-1 transition-all duration-300"><div className="w-12 h-12 grid place-items-center rounded-xl bg-accent/10 border border-accent/30 text-accent mb-5"><Icon size={22} aria-hidden="true" /></div><h3 className="text-xl font-semibold">{title}</h3><p className="mt-2 text-sm text-muted-foreground leading-relaxed">{text}</p></div>)}
+          </div>
+          <Button asChild variant="outline" className="mt-10 rounded-full border-accent text-accent h-auto min-h-12 px-6 whitespace-normal hover:bg-accent/10 hover:text-accent"><a href="https://wa.me/5584988367436?text=Tenho%20interesse%20em%20agentes%20de%20IA" target="_blank" rel="noopener noreferrer"><BrainCircuit aria-hidden="true" /> Conversar sobre agentes de IA <ArrowRight aria-hidden="true" /></a></Button>
+        </div>
+      </section>
+      <Segments />
 
       {/* LGPD */}
       <section id="lgpd" className="relative px-6 py-28">
@@ -297,16 +294,18 @@ function Index() {
         </div>
       </section>
 
+      <HiringSections />
+
       {/* Contact CTA */}
       <section id="contato" className="relative px-6 py-28">
         <div className="max-w-4xl mx-auto rounded-3xl border border-glow-cyan bg-card/60 backdrop-blur-md p-12 md:p-16 text-center relative overflow-hidden">
           <div className="absolute -top-32 -right-32 w-64 h-64 rounded-full bg-[oklch(0.74_0.21_48)] opacity-20 blur-3xl" />
           <div className="absolute -bottom-32 -left-32 w-64 h-64 rounded-full bg-[oklch(0.82_0.16_210)] opacity-20 blur-3xl" />
           <h2 className="relative text-3xl md:text-5xl font-bold">
-            Pronto para elevar sua <span className="glow-orange">segurança</span>?
+            Qual o próximo passo para o seu <span className="glow-orange">negócio</span>?
           </h2>
           <p className="relative mt-5 text-muted-foreground text-lg max-w-xl mx-auto">
-            Converse com um de nossos especialistas e descubra como nossa IA pode proteger seu negócio.
+            Fale com nossa equipe sobre cibersegurança ou agentes de IA. Vamos entender o que sua empresa precisa.
           </p>
           <a
             href="https://wa.me/5584988367436"
@@ -331,8 +330,8 @@ function Index() {
           </div>
           <div className="text-sm text-muted-foreground space-y-2">
             <p className="font-semibold text-foreground mb-2">Empresa</p>
-            <a href="#servicos" className="block hover:text-foreground">Serviços</a>
-            <a href="#ia" className="block hover:text-foreground">IA</a>
+            <a href="#servicos" className="block hover:text-foreground">Cibersegurança</a>
+            <a href="#agentes-ia" className="block hover:text-foreground">Agentes de IA</a>
             <a href="#contato" className="block hover:text-foreground">Contato</a>
           </div>
           <div className="text-sm text-muted-foreground space-y-2">

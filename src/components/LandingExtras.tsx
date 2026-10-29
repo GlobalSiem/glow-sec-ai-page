@@ -55,7 +55,7 @@ export function Comparison() {
     ["Análise manual de logs", "Correlação automática por IA"],
     ["Resposta em horas", "Mitigação em sub-segundos"],
     ["Relatórios atrasados", "Relatórios executivos em tempo real"],
-    ["Atendimento em horário comercial", "Agentes de IA 24/7"],
+    ["Visibilidade fragmentada da rede", "Monitoramento centralizado da infraestrutura"],
   ];
   return (
     <section className="px-6 py-28">
@@ -95,9 +95,9 @@ export function Comparison() {
 
 export function Segments() {
   const segs = [
-    { icon: Stethoscope, t: "Clínicas & Hospitais", d: "Proteção de prontuários e dados sensíveis de pacientes, em conformidade com a LGPD, e agentes de IA para agendamento." },
-    { icon: ShoppingBag, t: "Lojas & E-commerces", d: "Load balance para picos de venda, zero queda e atendimento automatizado com IA para seus clientes." },
-    { icon: Building2, t: "Escritórios & Indústrias", d: "VPN segura para trabalho remoto, firewall corporativo e monitoramento contínuo da rede." },
+    { icon: Stethoscope, t: "Clínicas & Hospitais", d: "Agentes de IA para dúvidas iniciais, solicitações de agendamento e organização do atendimento, sem substituir a orientação dos profissionais de saúde." },
+    { icon: ShoppingBag, t: "Lojas & E-commerces", d: "Atendimento automatizado sobre produtos, dúvidas de clientes e acompanhamento de solicitações, conforme as integrações da loja." },
+    { icon: Building2, t: "Escritórios & Indústrias", d: "Agentes de IA para organizar solicitações, consultar informações e apoiar rotinas administrativas e tarefas repetitivas." },
   ];
   const [active, setActive] = useState(0);
   const S = segs[active];
@@ -105,7 +105,7 @@ export function Segments() {
     <section className="px-6 pb-28">
       <div className="max-w-5xl mx-auto">
         <div className="text-center">
-          <p className={`text-sm font-semibold uppercase tracking-widest ${CYAN}`}>Segmentos Atendidos</p>
+          <p className={`text-sm font-semibold uppercase tracking-widest ${CYAN}`}>Agentes de IA por segmento</p>
           <h2 className="mt-3 text-4xl md:text-5xl font-bold">Feito sob medida para o <span className="glow-orange">seu negócio</span></h2>
         </div>
         <div className="mt-10 flex flex-wrap justify-center gap-3">

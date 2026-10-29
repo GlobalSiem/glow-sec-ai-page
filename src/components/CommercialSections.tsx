@@ -1,5 +1,4 @@
-import { BrainCircuit, ShieldCheck, ArrowRight, MessageCircle, Search, FileText, Settings2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { MessageCircle, Search, FileText, Settings2 } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 const steps = [
@@ -17,37 +16,16 @@ const faqs = [
   { q: "Como funciona o suporte?", a: "Canais, horários de atendimento e responsabilidades devem constar na proposta e no contrato. Confirme com a equipe a cobertura necessária para sua operação." },
 ];
 
-export function SolutionPaths() {
-  return (
-    <section aria-label="Soluções da Global Siem" className="px-6 pt-16">
-      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 md:gap-12">
-        <div className="border-t border-accent/50 pt-6">
-          <BrainCircuit className="text-accent mb-4" size={28} aria-hidden="true" />
-          <h2 className="text-2xl md:text-3xl font-bold">Agentes de IA para o seu negócio</h2>
-          <p className="mt-4 text-muted-foreground leading-relaxed">Atendimento automatizado, agendamentos e automações sob medida para clínicas, lojas e escritórios.</p>
-          <Button asChild variant="link" className="mt-4 px-0 h-auto text-accent whitespace-normal text-left justify-start"><a href="#agentes-ia">Conheça os agentes de IA <ArrowRight aria-hidden="true" /></a></Button>
-        </div>
-        <div className="border-t border-primary/50 pt-6">
-          <ShieldCheck className="text-primary mb-4" size={28} aria-hidden="true" />
-          <h2 className="text-2xl md:text-3xl font-bold">Cibersegurança para sua empresa</h2>
-          <p className="mt-4 text-muted-foreground leading-relaxed">Firewall, VPN, monitoramento e análise de logs para proteger sua infraestrutura e seus dados.</p>
-          <Button asChild variant="link" className="mt-4 px-0 h-auto whitespace-normal text-left justify-start"><a href="#servicos">Conheça a proteção <ArrowRight aria-hidden="true" /></a></Button>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 export function HiringSections() {
   return (
     <>
-      <section id="contratacao" className="px-6 py-20">
-        <div className="max-w-6xl mx-auto">
-          <p className="text-sm font-semibold text-accent">DO PRIMEIRO CONTATO À IMPLANTAÇÃO</p>
-          <h2 className="mt-3 text-3xl md:text-4xl font-bold">Uma solução alinhada ao seu negócio</h2>
+      <section id="contratacao" className="relative px-6 pt-20 pb-16">
+        <div className="max-w-7xl mx-auto">
+          <p className="text-sm font-semibold text-accent uppercase tracking-widest">DO PRIMEIRO CONTATO À IMPLANTAÇÃO</p>
+          <h2 className="mt-3 text-4xl md:text-5xl font-bold">Do primeiro contato à sua solução</h2>
           <ol className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {steps.map(({ icon: Icon, title, text }, i) => (
-              <li key={title} className="border-t border-border pt-5">
+              <li key={title} className="group rounded-2xl border border-border bg-card/40 backdrop-blur-sm p-6 hover:border-accent/50 transition-colors">
                 <div className="flex items-center justify-between text-accent"><span className="font-mono text-sm">0{i + 1}</span><Icon size={22} aria-hidden="true" /></div>
                 <h3 className="mt-5 text-xl font-semibold">{title}</h3>
                 <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{text}</p>
@@ -58,9 +36,9 @@ export function HiringSections() {
       </section>
       <section id="perguntas" className="px-6 py-16">
         <div className="max-w-4xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold">Perguntas frequentes</h2>
-          <Accordion type="single" collapsible className="mt-8">
-            {faqs.map(({ q, a }, i) => <AccordionItem key={q} value={`faq-${i}`}><AccordionTrigger className="text-base text-left">{q}</AccordionTrigger><AccordionContent className="text-muted-foreground leading-relaxed">{a}</AccordionContent></AccordionItem>)}
+          <div className="text-center"><p className="text-sm font-semibold text-accent uppercase tracking-widest">Antes de começar</p><h2 className="mt-3 text-4xl md:text-5xl font-bold">Perguntas <span className="glow-cyan">frequentes</span></h2></div>
+          <Accordion type="single" collapsible className="mt-10 space-y-3">
+            {faqs.map(({ q, a }, i) => <AccordionItem key={q} value={`faq-${i}`} className="rounded-2xl border border-border bg-card/40 backdrop-blur-sm px-6 data-[state=open]:border-accent/50"><AccordionTrigger className="text-lg font-display text-left py-5">{q}</AccordionTrigger><AccordionContent className="text-muted-foreground leading-relaxed">{a}</AccordionContent></AccordionItem>)}
           </Accordion>
         </div>
       </section>

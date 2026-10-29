@@ -2,8 +2,8 @@ import { describe, expect, test } from "bun:test";
 import { COOKIE_PREFERENCE_KEY, readCookieChoice, saveCookieChoice } from "./cookie-preferences";
 
 function storage() {
-  const values = new Map<string, string>();
-  return { getItem: (key: string) => values.get(key) ?? null, setItem: (key: string, value: string) => { values.set(key, value); } };
+  const values = new Map();
+  return { getItem: (key) => values.get(key) ?? null, setItem: (key, value) => { values.set(key, value); } };
 }
 
 describe("visitor cookie choice", () => {
