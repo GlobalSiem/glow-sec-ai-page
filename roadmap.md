@@ -4,3 +4,5 @@
 - [ ] Permitir reabrir e alterar a escolha de cookies, preservando a persistência.
 - [ ] Corrigir idioma, título e acessibilidade básica.
 - [ ] Validar fluxos e leitura em computador e celular.
+- [ ] Corrigir o teste de cookies com sintaxe inválida.
+- [ ] Agrupar cibersegurança e agentes de IA separadamente e levar contratação para perto do contato, harmonizando as novas seções.
