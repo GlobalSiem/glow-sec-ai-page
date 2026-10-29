@@ -25,8 +25,9 @@ export function HiringSections() {
         <div className="max-w-7xl mx-auto">
           <p className="text-sm font-semibold text-accent uppercase tracking-widest">Como contratar</p>
           <h2 className="mt-3 text-4xl md:text-5xl font-bold">Do primeiro contato à <span className="glow-cyan">sua solução</span></h2>
-          <ol className="relative mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div aria-hidden="true" className="hidden lg:block absolute top-[3.25rem] left-[12%] right-[12%] h-px bg-gradient-to-r from-primary/0 via-accent/60 to-primary/0" />
+          <div className="relative mt-14">
+          <div aria-hidden="true" className="hidden lg:block absolute top-[3.25rem] left-[12%] right-[12%] h-px bg-gradient-to-r from-primary/0 via-accent/60 to-primary/0" />
+          <ol className="relative grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {steps.map(({ icon: Icon, title, text }, i) => (
               <li key={title} className="group relative overflow-hidden rounded-2xl border border-border bg-card/40 backdrop-blur-sm p-7 hover:border-accent/50 hover:-translate-y-1 transition-all duration-300">
                 <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-br from-accent/10 via-transparent to-primary/10" />
@@ -40,6 +41,7 @@ export function HiringSections() {
               </li>
             ))}
           </ol>
+          </div>
         </div>
       </section>
       <section id="perguntas" className="px-6 py-16">
