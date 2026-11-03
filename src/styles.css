@@ -70,6 +70,10 @@
   --glow-orange: 0 0 30px oklch(0.74 0.21 48 / 0.6), 0 0 60px oklch(0.74 0.21 48 / 0.3);
   --glow-cyan: 0 0 30px oklch(0.82 0.16 210 / 0.6), 0 0 60px oklch(0.82 0.16 210 / 0.3);
   --shadow-card: 0 20px 60px -20px oklch(0 0 0 / 0.5);
+  --chat-contour: color-mix(in oklch, var(--neon-cyan) 55%, transparent);
+  --chat-contour-glow: 0 0 28px color-mix(in oklch, var(--neon-cyan) 30%, transparent), 0 0 60px color-mix(in oklch, var(--neon-cyan) 15%, transparent);
+  --chat-spectrum: conic-gradient(from var(--chat-angle), var(--neon-cyan), oklch(0.72 0.18 260), oklch(0.72 0.2 330), var(--neon-cyan));
+  --chat-mask: linear-gradient(#000 0 0);
 }
 
 @layer base {
@@ -148,87 +152,57 @@
 }
 .chat-glow-border {
   border-radius: 1.25rem;
+  border: 1px solid var(--chat-contour);
+  box-shadow: var(--shadow-card), var(--chat-contour-glow);
 }
-.chat-glow-border::before {
+.chat-input-ring {
+  position: relative;
+  border-radius: 9999px;
+  isolation: isolate;
+}
+.chat-input-ring::before {
   content: "";
   position: absolute;
   inset: 0;
   border-radius: inherit;
   padding: 1.5px;
-  background: conic-gradient(from var(--chat-angle),
-    oklch(0.82 0.16 210) 0deg,
-    oklch(0.74 0.21 48) 90deg,
-    oklch(0.65 0.25 300) 180deg,
-    oklch(0.82 0.16 210) 270deg,
-    oklch(0.82 0.16 210) 360deg);
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  background: var(--chat-contour);
+  -webkit-mask: var(--chat-mask) content-box, var(--chat-mask);
   -webkit-mask-composite: xor;
           mask-composite: exclude;
-  animation: chat-border-spin 6s linear infinite;
-  pointer-events: none;
-  z-index: 2;
-}
-.chat-glow-border::after {
-  content: "";
-  position: absolute;
-  inset: -4px;
-  border-radius: inherit;
-  background: conic-gradient(from var(--chat-angle),
-    oklch(0.82 0.16 210 / 0.6) 0deg,
-    oklch(0.74 0.21 48 / 0.6) 90deg,
-    oklch(0.65 0.25 300 / 0.6) 180deg,
-    oklch(0.82 0.16 210 / 0.6) 270deg,
-    oklch(0.82 0.16 210 / 0.6) 360deg);
-  filter: blur(14px);
-  opacity: 0.5;
-  animation: chat-border-spin 6s linear infinite;
-  pointer-events: none;
-  z-index: 0;
-}
-.chat-input-ring {
-  position: relative;
-  border-radius: 9999px;
-}
-.chat-input-ring::before {
-  content: "";
-  position: absolute;
-  inset: -1.5px;
-  border-radius: inherit;
-  padding: 1.5px;
-  background: conic-gradient(from var(--chat-angle),
-    oklch(0.82 0.16 210) 0deg,
-    oklch(0.74 0.21 48) 90deg,
-    oklch(0.65 0.25 300) 180deg,
-    oklch(0.82 0.16 210) 270deg,
-    oklch(0.82 0.16 210) 360deg);
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-          mask-composite: exclude;
-  animation: chat-border-spin 4s linear infinite;
   pointer-events: none;
   z-index: 2;
 }
 .chat-input-ring::after {
   content: "";
   position: absolute;
-  inset: -5px;
+  inset: 0;
   border-radius: inherit;
-  background: conic-gradient(from var(--chat-angle),
-    oklch(0.82 0.16 210 / 0.7) 0deg,
-    oklch(0.74 0.21 48 / 0.7) 90deg,
-    oklch(0.65 0.25 300 / 0.7) 180deg,
-    oklch(0.82 0.16 210 / 0.7) 270deg,
-    oklch(0.82 0.16 210 / 0.7) 360deg);
-  filter: blur(12px);
-  opacity: 0.5;
-  animation: chat-border-spin 4s linear infinite;
-.chat-input-ring input:focus-visible { outline: none; }
+  padding: 1.5px;
+  background: var(--chat-spectrum);
+  -webkit-mask: var(--chat-mask) content-box, var(--chat-mask);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  filter: blur(5px);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 2;
+  transition: opacity 180ms ease;
+}
+.chat-input-ring input,
+.chat-input-ring input:focus,
+.chat-input-ring input:focus-visible {
+  outline: none;
+  border: 0;
+  box-shadow: none;
+}
 .chat-input-ring:focus-within::before {
-  background: oklch(0.82 0.16 210);
-  animation: none;
+  background: var(--chat-spectrum);
+  animation: chat-border-spin 4s linear infinite;
 }
 .chat-input-ring:focus-within::after {
   opacity: 0.75;
+  animation: chat-border-spin 4s linear infinite;
 }
 
 
