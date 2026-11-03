@@ -1,4 +1,5 @@
 # Melhorias da landing page
+- [ ] Aplicar brilho ciano externo ao chat conforme a nova referência e validar a linha única rotativa no campo focado.
 - [x] Destacar agentes de IA junto à cibersegurança.
 - [x] Adicionar etapas de contratação e perguntas frequentes sem inventar condições comerciais.
 - [x] Permitir reabrir e alterar a escolha de cookies, preservando a persistência.
