@@ -277,7 +277,7 @@ function Index() {
                 <div key={item.title} className={`rounded-2xl border bg-card/40 backdrop-blur-sm transition-all ${open ? "border-[oklch(0.82_0.16_210/0.5)]" : ""}`}>
                   <Button variant="ghost" id={`lgpd-trigger-${i}`} aria-expanded={open} aria-controls={`lgpd-panel-${i}`}
                     onClick={() => setOpenIdx(open ? null : i)}
-                    className="w-full h-auto whitespace-normal flex items-center justify-between gap-4 px-6 py-5 text-left hover:bg-accent/5"
+                    className="w-full h-auto whitespace-normal flex items-center justify-between gap-4 px-6 py-5 text-left hover:bg-accent/5 hover:text-foreground"
                   >
                     <span className="font-display font-semibold text-lg">{item.title}</span>
                     <ChevronDown size={20} className={`shrink-0 text-[oklch(0.9_0.14_210)] transition-transform ${open ? "rotate-180" : ""}`} />
