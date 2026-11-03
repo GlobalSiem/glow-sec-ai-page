@@ -89,7 +89,8 @@ export function ChatWidget() {
     <>
 
       {open && (
-        <div role="dialog" aria-labelledby="gisa-title" className="chat-glow-border fixed bottom-6 right-6 z-50 w-[calc(100vw-3rem)] max-w-sm h-[70dvh] max-h-[600px] shadow-[var(--shadow-card)] flex flex-col overflow-hidden">
+        <div role="dialog" aria-labelledby="gisa-title" className="chat-glow-border fixed bottom-6 right-6 z-50 w-[calc(100vw-3rem)] max-w-sm h-[70dvh] max-h-[600px] shadow-[var(--shadow-card)]">
+          <div className="relative z-[1] flex h-full w-full flex-col overflow-hidden rounded-[calc(1.25rem-2px)] bg-card">
           <div className="flex items-center justify-between px-4 py-3 border-b border-white/10 bg-background/60">
             <div className="flex items-center gap-2">
               <div className="w-2.5 h-2.5 rounded-full bg-[oklch(0.82_0.16_210)] animate-pulse-glow" />
@@ -151,6 +152,7 @@ export function ChatWidget() {
               <Send size={15} />
             </Button>
           </form>
+          </div>
         </div>
       )}
     </>
