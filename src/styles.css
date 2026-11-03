@@ -72,7 +72,7 @@
   --shadow-card: 0 20px 60px -20px oklch(0 0 0 / 0.5);
   --chat-contour: color-mix(in oklch, var(--neon-cyan) 55%, transparent);
   --chat-contour-glow: 0 0 28px color-mix(in oklch, var(--neon-cyan) 30%, transparent), 0 0 60px color-mix(in oklch, var(--neon-cyan) 15%, transparent);
-  --chat-spectrum: conic-gradient(from var(--chat-angle), var(--neon-cyan), oklch(0.72 0.18 260), oklch(0.72 0.2 330), var(--neon-cyan));
+  --chat-spectrum-colors: var(--neon-cyan), oklch(0.72 0.18 260), oklch(0.72 0.2 330), var(--neon-cyan);
   --chat-mask: linear-gradient(#000 0 0);
 }
 
@@ -179,7 +179,7 @@
   inset: 0;
   border-radius: inherit;
   padding: 1.5px;
-  background: var(--chat-spectrum);
+  background: conic-gradient(from var(--chat-angle), var(--chat-spectrum-colors));
   -webkit-mask: var(--chat-mask) content-box, var(--chat-mask);
   -webkit-mask-composite: xor;
           mask-composite: exclude;
@@ -197,7 +197,7 @@
   box-shadow: none;
 }
 .chat-input-ring:focus-within::before {
-  background: var(--chat-spectrum);
+  background: conic-gradient(from var(--chat-angle), var(--chat-spectrum-colors));
   animation: chat-border-spin 4s linear infinite;
 }
 .chat-input-ring:focus-within::after {
